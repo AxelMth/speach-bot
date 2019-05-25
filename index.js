@@ -2,6 +2,7 @@
 require("dotenv").config();
 const Reminder = require("./models/Reminder").default;
 const Bot = require("./bot").bot;
+const getFromGoogleApi = require("./lib/utils/googleApi").getFromGoogleApi;
 
 const BootBot = require("./lib/BootBot");
 const Scenario = require("./lib/Scenario");
@@ -85,7 +86,8 @@ const scenario1 = new Scenario(bot, [
     actions: [
       {
         type: "say text",
-        text: "C’est bien noté :note:, je te rappellerai de prendre ta pilule à cette heure-là ! :réveil"
+        text:
+          "C’est bien noté :note:, je te rappellerai de prendre ta pilule à cette heure-là ! :réveil"
       }
     ]
   }

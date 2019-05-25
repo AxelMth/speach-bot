@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Charca/bootbot#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.15.2",
     "config": "^1.21.0",
     "cron": "^1.7.1",
