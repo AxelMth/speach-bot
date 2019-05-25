@@ -1,6 +1,6 @@
 'use strict';
 require("dotenv").config();
-const Reminder = require("./models/Reminder");
+const Reminder = require("./models/Reminder").Reminder;
 
 const BootBot = require('./lib/BootBot');
 
@@ -11,7 +11,7 @@ const bot = new BootBot({
 });
 
 bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
-    Reminder.create({
+    Reminder.create ({
         idUser: payload.idUser
     });
 	chat.say('Get fucked!').then(() => {
