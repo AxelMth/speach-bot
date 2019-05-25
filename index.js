@@ -1,5 +1,6 @@
 'use strict';
 require("dotenv").config();
+const Reminder = require("./models/Reminder");
 
 const BootBot = require('./lib/BootBot');
 
@@ -9,10 +10,10 @@ const bot = new BootBot({
     appSecret: process.env.FB_APP_SECRET
 });
 
-let chat;
-
 bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
-    chat = chat;
+    Reminder.create({
+        idUser: payload.idUser
+    });
 	chat.say('Get fucked!').then(() => {
 		chat.say('How are you today?', { typing: true });
 	});
@@ -20,8 +21,3 @@ bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
 
 
 bot.start(process.env.PORT);
-
-
-sleep(3000);
-if(chat)
-    chat.say('forced message');
