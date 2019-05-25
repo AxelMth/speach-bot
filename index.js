@@ -9,13 +9,19 @@ const bot = new BootBot({
     appSecret: process.env.FB_APP_SECRET
 });
 
+let chat;
+
 bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
+    chat = chat;
 	chat.say('Get fucked!').then(() => {
 		chat.say('How are you today?', { typing: true });
 	});
 });
 
-chat.say('forced message');
 
 bot.start(process.env.PORT);
 
+
+sleep(3000);
+if(chat)
+    chat.say('forced message');
