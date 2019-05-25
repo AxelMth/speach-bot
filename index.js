@@ -71,7 +71,17 @@ const scenario1 = new Scenario(Bot, [
         quickReplies: ["Carrément !",	"Non merci !"]
       },
     ]
-  }
+  },{
+        listener: "attachement",
+      actions: [
+        {
+          type: "say object",
+          attachment: "image",
+          url:
+            "https://www.tourisme.fr/images/otf_offices/1832/cathedrale-de-rouen1.jpg"
+        }
+      ]
+    },
 ]);
 
 scenario1.playScenario();
