@@ -1,4 +1,3 @@
-"use strict";
 const sequelize = require("sequelize");
 const DB = require("../DB");
 const Reminder = DB.default.define("Reminder", {

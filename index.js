@@ -1,18 +1,9 @@
 'use strict';
 require("dotenv").config();
 const Reminder = require("./models/Reminder").default;
+const Bot = require("./bot").bot;
 
-const BootBot = require('./lib/BootBot');
-
-const bot = new BootBot({
-    accessToken: process.env.FB_ACCESS_TOKEN,
-    verifyToken: process.env.FB_VERIFY_TOKEN,
-    appSecret: process.env.FB_APP_SECRET
-});
-
-bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
-    console.log("id user");
-    console.log(payload);
+Bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
     Reminder.create ({
         idUser: payload.sender.id
     });
