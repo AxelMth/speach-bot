@@ -75,7 +75,7 @@ const scenario1 = new Scenario(Bot, [
         type: "postback",
         text:
           "Alors, à quelle heure je t’envoie un rappel ? 😄",
-        quickReplies: ["Carrément !",	"Non merci !"],
+        quickReplies: ["08h",	"21h"],
         payload: "HOUR_REMINDER_SET"
       },
     ]
