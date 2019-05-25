@@ -96,9 +96,9 @@ const scenario1 = new Scenario(Bot, [
 Bot.on('quick_reply:<HOUR_SET_21H>', (payload, chat) => {
   chat.say("tas choisi 21h");
 });
-Bot.on('quick_reply', (payload, chat) => {
-  chat.say("choix des heures "+payload);
-});
+// Bot.on('quick_reply', (payload, chat) => {
+//   chat.say("choix des heures "+payload);
+// });
 
 scenario1.playScenario();
 
