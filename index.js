@@ -72,7 +72,7 @@ const scenario1 = new Scenario(Bot, [
         
       },
       {
-        type: "postback",
+        type: "say object",
         text:
           "Alors, à quelle heure je t’envoie un rappel ? 😄",
         quickReplies: ["08h",	"21h"],
@@ -82,7 +82,7 @@ const scenario1 = new Scenario(Bot, [
   },
 ]);
 
-Bot.on('on:postback:HOUR_REMINDER_SET', (payload, chat) => {
+Bot.on('on:quick_reply:HOUR_REMINDER_SET', (payload, chat) => {
   chat.say("choix des heures");
 });
 
