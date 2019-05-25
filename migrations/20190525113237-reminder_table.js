@@ -11,7 +11,7 @@ module.exports = {
       },
       idUser:{
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       time:{
         allowNull: true,

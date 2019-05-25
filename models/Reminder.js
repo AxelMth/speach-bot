@@ -7,7 +7,7 @@ const Reminder = DB.default.define("Reminder", {
         primaryKey: true,
         autoIncrement: true
     },
-    idUser: sequelize.INTEGER,
+    idUser: sequelize.BIGINT,
     time: sequelize.DATE,
     sequenceStep: sequelize.INTEGER
 }, {
