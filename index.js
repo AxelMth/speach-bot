@@ -75,15 +75,30 @@ const scenario1 = new Scenario(Bot, [
         type: "say object",
         text:
           "Alors, à quelle heure je t’envoie un rappel ? 😄",
-        quickReplies: ["08h",	"21h"],
-        payload: "HOUR_REMINDER_SET"
+        quickReplies: [
+          {
+            "content_type":"text",
+            "title":"08h",
+            "payload":"<HOUR_SET_8H>",
+            "image_url":"http://example.com/img/red.png"
+          },
+          {
+            "content_type":"text",
+            "title":"21h",
+            "payload":"<HOUR_SET_21H>",
+          }
+        ],
+        // payload: "HOUR_REMINDER_SET"
       },
     ]
   },
 ]);
 
-Bot.on('on:quick_reply:HOUR_REMINDER_SET', (payload, chat) => {
-  chat.say("choix des heures");
+Bot.on('on:quick_reply:HOUR_SET_21H', (payload, chat) => {
+  chat.say("tas choisi 21h");
+});
+Bot.on('on:quick_reply:HOUR_SET_21H', (payload, chat) => {
+  chat.say("choix des heures "+payload);
 });
 
 scenario1.playScenario();
