@@ -11,6 +11,8 @@ const bot = new BootBot({
 });
 
 bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
+    console.log("id user");
+    console.log(payload);
     Reminder.create ({
         idUser: payload.idUser
     });
