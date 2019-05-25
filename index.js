@@ -80,7 +80,6 @@ const scenario1 = new Scenario(Bot, [
             "content_type":"text",
             "title":"08h",
             "payload":"<HOUR_SET_8H>",
-            "image_url":"http://example.com/img/red.png"
           },
           {
             "content_type":"text",
@@ -94,10 +93,10 @@ const scenario1 = new Scenario(Bot, [
   },
 ]);
 
-Bot.on('on:quick_reply:HOUR_SET_21H', (payload, chat) => {
+Bot.on('quick_reply:HOUR_SET_21H', (payload, chat) => {
   chat.say("tas choisi 21h");
 });
-Bot.on('on:quick_reply', (payload, chat) => {
+Bot.on('quick_reply', (payload, chat) => {
   chat.say("choix des heures "+payload);
 });
 
