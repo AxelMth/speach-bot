@@ -102,7 +102,7 @@ Bot.on('quick_reply:<HOUR_SET_21H>', (payload, chat) => {
 
 const scenarioReminder = new Scenario(Bot, [
   {
-      listener: ["Je l’ai pas sur moi 🤭"],
+      listener: ["Je l’ai pas sur moi"],
       actions: [
         {
           type: "say object",
