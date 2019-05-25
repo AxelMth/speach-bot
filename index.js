@@ -6,6 +6,12 @@ const Bot = require("./bot").bot;
 const BootBot = require("./lib/BootBot");
 const Scenario = require("./lib/Scenario");
 
+const {
+  dayTimeGenerator,
+  timeGenerator,
+  formatTimeFromInput
+} = require("./lib/utils/generate-midday-schedules");
+
 const bot = new BootBot({
   accessToken: process.env.FB_ACCESS_TOKEN,
   verifyToken: process.env.FB_VERIFY_TOKEN,
@@ -14,27 +20,72 @@ const bot = new BootBot({
 
 const scenario1 = new Scenario(bot, [
   {
-    listener: ["comment prendre pilule"],
+    listener: ["test"],
+    actions: [
+      {
+        type: "say object",
+        text: "Team matin, après-midi ou soir ?",
+        quickReplies: ["Matin", "Aprèm", "Nuit"]
+      }
+    ]
+  },
+  {
+    listener: /Matin|Aprèm|Nuit/i,
+    actions: [
+      {
+        type: "say object",
+        text: "À quelle heure ?",
+        quickRepliesGenerator: dayTimeGenerator
+      }
+    ]
+  },
+  {
+    listener: /^[0-9]{1}([0-9]{1})?h$|^Minuit$|^Midi$/i,
+    actions: [
+      {
+        type: "say object",
+        text: "Allez, t'as le meme le choix des minutes !",
+        quickRepliesGenerator: timeGenerator
+      }
+    ]
+  },
+  {
+    listener: /^[0-9]{1}([0-9]{1})?h[0-9]{2}$|^Minuit !$|^Midi !$/i,
+    callback: async (idUser, reminderTime) => {
+      try {
+        const foundUser = await Reminder.findOne({
+          where: {
+            idUser
+          }
+        });
+        if (foundUser) {
+          await Reminder.update(
+            {
+              idUser,
+              sequenceStep: 0,
+              time: formatTimeFromInput(reminderTime)
+            },
+            {
+              where: {
+                idUser
+              }
+            }
+          );
+        } else {
+          await Reminder.create({
+            idUser,
+            sequenceStep: 0,
+            time: formatTimeFromInput(reminderTime)
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
     actions: [
       {
         type: "say text",
-        text:
-          "Je peux te donner plein de conseils pour l'aider à bien prendre ta pilule ! Mais commençons par les plus importants :"
-      },
-      {
-        type: "say text",
-        text: `💡Pour commencer la première fois la pilule, tu as deux possibilités : 
-          1️⃣  tu peux la prendre le 1er jour de tes règles 
-          2️⃣ ou tu peux la prendre à n’importe quel moment de ton cycle 🚨MAIS tu dois utiliser un préservatif pendant 7j. Après ce délai, tu seras protégée d’une éventuelle grossesse non désirée.
-          `
-      },
-      {
-        type: "say text",
-        text: `⏰ Ensuite, il faut que tu sois régulière : tu devras la prendre tous les jours, plus ou moins à la même heure`
-      },
-      {
-        type: "say object",
-        quickReplies: ["Ça fait beaucoup d’infos 😨", "D’autres conseils ! 😍", "Je savais déjà tout 😇"]
+        text: "C’est bien noté :note:, je te rappellerai de prendre ta pilule à cette heure-là ! :réveil"
       }
     ]
   }
