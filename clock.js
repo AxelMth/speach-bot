@@ -72,7 +72,7 @@ new CronJob({
 const remindersQR = {
         type: "say object",
         text: "Il est l’heure de ta pilule ! Tu l’as prise ça y est ?! 😄",
-        quickReplies: ["Yes ! ✅",	"Non…", "Je l’ai pas avec moi 🤭", "J’arrête de la prendre"]
+        quickReplies: ["Yes ! ✅",	"Non…", "Je l’ai pas sur moi 🤭", "J’arrête de la prendre"]
 };
 
 const remindersObject = [
