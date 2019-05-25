@@ -16,7 +16,7 @@ Bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
 
 const scenario1 = new Scenario(Bot, [
   {
-    listener: /(.*)comment(.*)prendre(.*)pilule(.*)/i,
+    listener: /(.*)comment(.*)prendre(.*)pil(.*)/i,
     actions: [
       {
         type: "say text",
@@ -60,7 +60,7 @@ const scenario1 = new Scenario(Bot, [
       {
         type: "say object",
         attachment: "image",
-        url:"https://media.giphy.com/media/5zbM9JbyO7nGQKS9bl/giphy.gif"
+        url:"https://media.giphy.com/media/ehmtO0cTEP4Vuesrr2/giphy.gif"
         }
       ,
       {
@@ -75,15 +75,16 @@ const scenario1 = new Scenario(Bot, [
         type: "say object",
         text:
           "Alors, à quelle heure je t’envoie un rappel ? 😄",
-        quickReplies: ["Carrément !",	"Non merci !"]
+        quickReplies: ["Carrément !",	"Non merci !"],
+        postback: "HOUR_REMINDER_SET"
       },
     ]
-  },{
-      actions: [
-      
-      ]
-    },
+  },
 ]);
+
+Bot.on('on:postback:HOUR_REMINDER_SET', (payload, chat) => {
+  chat.say("choix des heures");
+});
 
 scenario1.playScenario();
 
