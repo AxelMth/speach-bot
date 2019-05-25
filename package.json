@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Charca/bootbot#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.15.2",
     "config": "^1.21.0",
     "cron": "^1.7.1",
@@ -34,13 +35,9 @@
     "eventemitter3": "^1.2.0",
     "express": "^4.14.0",
     "node-fetch": "^1.5.3",
-<<<<<<< HEAD
-    "nodemon": "^1.19.0"
-=======
     "pg": "^7.11.0",
     "sequelize": "^5.8.6",
     "sequelize-cli": "^5.4.0"
->>>>>>> 246fbd81a079248000eb7340f90f257d49e198fa
   },
   "devDependencies": {
     "chai": "^3.5.0",

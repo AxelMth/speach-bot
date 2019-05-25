@@ -2,9 +2,13 @@
 require("dotenv").config();
 const Reminder = require("./models/Reminder").default;
 const Bot = require("./bot").bot;
+const getFromGoogleApi = require("./lib/utils/googleApi").getFromGoogleApi;
 
 const BootBot = require("./lib/BootBot");
 const Scenario = require("./lib/Scenario");
+getFromGoogleApi("48.843894, 2.400847", "pharmacie").then(data => {
+  console.log(data);
+});
 
 const bot = new BootBot({
   accessToken: process.env.FB_ACCESS_TOKEN,
@@ -34,7 +38,11 @@ const scenario1 = new Scenario(bot, [
       },
       {
         type: "say object",
-        quickReplies: ["Ça fait beaucoup d’infos 😨", "D’autres conseils ! 😍", "Je savais déjà tout 😇"]
+        quickReplies: [
+          "Ça fait beaucoup d’infos 😨",
+          "D’autres conseils ! 😍",
+          "Je savais déjà tout 😇"
+        ]
       }
     ]
   }
