@@ -14,7 +14,7 @@ bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
     console.log("id user");
     console.log(payload);
     Reminder.create ({
-        idUser: payload.idUser
+        idUser: payload.sender.id
     });
 	chat.say('Get fucked!').then(() => {
 		chat.say('How are you today?', { typing: true });
