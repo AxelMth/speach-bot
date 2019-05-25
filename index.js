@@ -13,11 +13,19 @@ const bot = new BootBot({
 });
 
 const scenario1 = new Scenario(bot, [
-  [
-    ["hello", "hi", /hey( there)?/i],
-    [{ text: "Get fucked!" }, { text: "How are you today?" }]
-  ]
-]);
+    {
+      listener: /(.*)comment (.*)prendre (.*)pilule ?/i,
+      actions: [
+        {
+          type: "say text",
+          text: "Je peux te donner plein de conseils pour l'aider à bien prendre ta pilule ! Mais commençons par les plus importants :",
+        },
+        {
+          type: "say text",
+          text: "Je peux te donner plein de conseils pour l'aider à bien prendre ta pilule ! Mais commençons par les plus importants :",
+        }
+      ]
+    },]);
 
 // Bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
 //     Reminder.create ({
@@ -30,4 +38,4 @@ const scenario1 = new Scenario(bot, [
 
 scenario1.playScenario();
 
-bot.start(process.env.PORT);
+bot.start(3000);
