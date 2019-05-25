@@ -72,7 +72,7 @@ const scenario1 = new Scenario(Bot, [
         
       },
       {
-        type: "postback",
+        type: "say object",
         text:
           "Alors, à quelle heure je t’envoie un rappel ? 😄",
         quickReplies: ["Carrément !",	"Non merci !"],
