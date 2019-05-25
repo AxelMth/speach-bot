@@ -32,13 +32,13 @@ const scenario1 = new Scenario(Bot, [
           
       },
       {
-        type: "say text",
-        text: `⏰ Ensuite, il faut que tu sois régulière : tu devras la prendre tous les jours, plus ou moins à la même heure`
-      },
-      {
         type: "say object",
+        text: `⏰ Ensuite, il faut que tu sois régulière : tu devras la prendre tous les jours, plus ou moins à la même heure`,
         quickReplies: ["Ça fait beaucoup d’infos 😨", "D’autres conseils ! 😍", "Je savais déjà tout 😇"]
-      }
+      },
+      // {
+      //   type: "say object",
+      // }
     ]
   }
 ]);
