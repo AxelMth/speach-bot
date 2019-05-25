@@ -11,6 +11,6 @@ const Reminder = DB.default.define("Reminder", {
     time: sequelize.DATE,
     sequenceStep: sequelize.INTEGER
 }, {
-    tableName: "Reminder"
+    tableName: "Reminders"
 });
 exports.default = Reminder;
