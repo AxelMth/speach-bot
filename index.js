@@ -60,7 +60,7 @@ const scenario1 = new Scenario(Bot, [
       {
         type: "say object",
         attachment: "image",
-        url:"https://giphy.com/gifs/awesome-nick-cannon-you-are-ehmtO0cTEP4Vuesrr2s"
+        url:"https://media.giphy.com/media/5zbM9JbyO7nGQKS9bl/giphy.gif"
         }
       ,
       {
