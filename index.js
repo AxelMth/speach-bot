@@ -25,10 +25,11 @@ const scenario1 = new Scenario(Bot, [
       },
       {
         type: "say text",
-        text: `💡Pour commencer la première fois la pilule, tu as deux possibilités : 
-          1️⃣  tu peux la prendre le 1er jour de tes règles 
-          2️⃣ ou tu peux la prendre à n’importe quel moment de ton cycle 🚨MAIS tu dois utiliser un préservatif pendant 7j. Après ce délai, tu seras protégée d’une éventuelle grossesse non désirée.
-          `
+        text: "💡Pour commencer la première fois la pilule, tu as deux possibilités : " +
+          " \n 1️⃣  tu peux la prendre le 1er jour de tes règles " +
+          " \n 2️⃣ ou tu peux la prendre à n’importe quel moment de ton cycle "+
+          " \n 🚨MAIS tu dois utiliser un préservatif pendant 7j. Après ce délai, tu seras protégée d’une éventuelle grossesse non désirée."
+          
       },
       {
         type: "say text",
