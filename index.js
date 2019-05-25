@@ -16,7 +16,7 @@ Bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
 
 const scenario1 = new Scenario(Bot, [
   {
-    listener: /(.*)comment(.*)prendre(.*)pilule(.*)(contracep.*)?/i,
+    listener: /(.*)comment(.*)prendre(.*)pilule(.*)/i,
     actions: [
       {
         type: "say text",
@@ -36,9 +36,40 @@ const scenario1 = new Scenario(Bot, [
         text: `⏰ Ensuite, il faut que tu sois régulière : tu devras la prendre tous les jours, plus ou moins à la même heure`,
         quickReplies: ["Ça fait beaucoup 😨", "+ de conseils ! 😍", "Je savais tout 😇"]
       },
-      // {
-      //   type: "say object",
-      // }
+    ]
+  },
+  {
+    listener: ["+ de conseils ! 😍"],
+    actions: [
+      {
+        type: "say object",
+        text:
+          "Je peux t’aider à te rappeler à prendre ta pilule tous les jours ! Finis les oublis ou le stress que ton rappel de téléphone sonne à tue-tête. Je t’enverrai une petite discrétos via Messenger. Ça t’intéresse ? 🤓 #ninja",
+        quickReplies: ["Carrément !",	"Non merci !"]
+      },
+    ]
+  },
+  {
+    listener: ["Carrément !"],
+    actions: [
+      {
+        type: "say text",
+        text: "Ok, super !",
+      },
+      {
+        type: "say text",
+        text: "Pour bien choisir un horaire, je te conseille d’être : " +
+        " \n ✅ toujours réveillée à ce moment (c’est quand même + pratique 🤗) " +
+        " \n ✅ pas très loin de ton tel (c’est pas le moment d’être à la piscine ou en boîte de nuit 🤓)"+
+        " \n ✅ avoir ta pilule à proximité (par exemple le soir, sur ta table de nuit ? 🌙)"
+        
+      },
+      {
+        type: "say object",
+        text:
+          "Alors, à quelle heure je t’envoie un rappel ? 😄",
+        quickReplies: ["Carrément !",	"Non merci !"]
+      },
     ]
   }
 ]);
