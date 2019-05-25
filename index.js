@@ -1,6 +1,6 @@
 'use strict';
 require("dotenv").config();
-const Reminder = require("./models/Reminder").Reminder;
+const Reminder = require("./models/Reminder").default;
 
 const BootBot = require('./lib/BootBot');
 
