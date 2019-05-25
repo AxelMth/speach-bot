@@ -15,5 +15,7 @@ bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
 	});
 });
 
+chat.say('forced message');
+
 bot.start(process.env.PORT);
 
