@@ -19,4 +19,4 @@ const scenario1 = new Scenario(bot, [
 
 scenario1.playScenario();
 
-bot.start();
+bot.start(process.env.PORT);
