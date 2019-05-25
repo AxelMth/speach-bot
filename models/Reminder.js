@@ -1,7 +1,7 @@
 "use strict";
 const sequelize = require("sequelize");
 const DB = require("../DB");
-const Reminder = DB.default.define("Reminder", {
+const Reminder = DB.define("Reminder", {
     id: {
         type: sequelize.INTEGER,
         primaryKey: true,
