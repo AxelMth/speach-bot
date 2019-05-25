@@ -9,7 +9,9 @@ new CronJob({
         const usersToRemind = await Reminder.findAll({
             attributes: ["idUser"]
         });
-        usersToRemind.forEach(e => Bot.say(e.getDataValue("idUser"),"I'll harass you now"));
+        usersToRemind.forEach(
+            e => Bot.say(e.getDataValue("idUser"),"I'll harass you now")
+        );
 
     },
     start: true,
