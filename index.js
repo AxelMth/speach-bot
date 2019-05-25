@@ -53,8 +53,12 @@ const scenario1 = new Scenario(Bot, [
     listener: ["Carrément !"],
     actions: [
       {
+        type: "say text",
+        text: "Ok super!"
+        
+      },
+      {
         type: "say object",
-        text: "Ok, super !",
         attachment: "image",
         url:"https://giphy.com/gifs/awesome-nick-cannon-you-are-ehmtO0cTEP4Vuesrr2s"
         }
