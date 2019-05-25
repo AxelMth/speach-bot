@@ -1,19 +1,22 @@
-'use strict';
+"use strict";
 require("dotenv").config();
 
-const BootBot = require('./lib/BootBot');
+const BootBot = require("./lib/BootBot");
+const Scenario = require("./lib/Scenario");
 
 const bot = new BootBot({
-    accessToken: process.env.FB_ACCESS_TOKEN,
-    verifyToken: process.env.FB_VERIFY_TOKEN,
-    appSecret: process.env.FB_APP_SECRET
+  accessToken: process.env.FB_ACCESS_TOKEN,
+  verifyToken: process.env.FB_VERIFY_TOKEN,
+  appSecret: process.env.FB_APP_SECRET
 });
 
-bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
-	chat.say('Get fucked!').then(() => {
-		chat.say('How are you today?', { typing: true });
-	});
-});
+const scenario1 = new Scenario(bot, [
+  [
+    ["hello", "hi", /hey( there)?/i],
+    [{ text: "Get fucked!" }, { text: "How are you today?" }]
+  ]
+]);
+
+scenario1.playScenario();
 
 bot.start();
-
