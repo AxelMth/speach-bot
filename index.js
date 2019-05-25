@@ -16,7 +16,7 @@ Bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat) => {
 
 const scenario1 = new Scenario(Bot, [
   {
-    listener: /(.*)comment(.*)prendre(.*)pilule(.*)/i,
+    listener: /(.*)comment(.*)prendre(.*)pilule(.*)(contracep)?/i,
     actions: [
       {
         type: "say text",
