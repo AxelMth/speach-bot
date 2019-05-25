@@ -53,9 +53,12 @@ const scenario1 = new Scenario(Bot, [
     listener: ["Carrément !"],
     actions: [
       {
-        type: "say text",
+        type: "say object",
         text: "Ok, super !",
-      },
+        attachment: "image",
+        url:"https://giphy.com/gifs/awesome-nick-cannon-you-are-ehmtO0cTEP4Vuesrr2s"
+        }
+      ,
       {
         type: "say text",
         text: "Pour bien choisir un horaire, je te conseille d’être : " +
@@ -72,14 +75,8 @@ const scenario1 = new Scenario(Bot, [
       },
     ]
   },{
-        listener: "attachement",
       actions: [
-        {
-          type: "say object",
-          attachment: "image",
-          url:
-            "https://www.tourisme.fr/images/otf_offices/1832/cathedrale-de-rouen1.jpg"
-        }
+      
       ]
     },
 ]);
