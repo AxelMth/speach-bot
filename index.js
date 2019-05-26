@@ -3,7 +3,8 @@ require("dotenv").config();
 const Reminder = require("./models/Reminder").default;
 const Bot = require("./bot").bot;
 const Scenario = require("./lib/Scenario");
-const getFromGoogleApi = require("./lib/utils/googleApi").getFromGoogleApi;
+const { getFromGoogleApi, getCityFromLatLng } = require("./lib/utils/googleApi");
+
 const {
   dayTimeGenerator,
   timeGenerator,
@@ -215,11 +216,12 @@ Bot.hear("Testloc", (payload, chat) => {
 });
 
 
-Bot.on('attachment', (payload, chat) => {
+Bot.on('attachment', async (payload, chat) => {
   console.log("plural");
-  console.log(payload.message.attachments);
-  console.log(payload.message.attachments[0].payload.coordinates);
+  const coord = payload.message.attachments[0].payload.coordinates;
   console.log("$$$$coordinates")
+  const city = await getCityFromLatLng(coord);
+  chat.say(`https://www.doctolib.fr/gynecologue/${city}?latitude=${coord.lat}&longitude=${coord.long}`);
   // console.log(payload.message.attachments.payload.coordinates);
 
   if(payload.coordinates)
