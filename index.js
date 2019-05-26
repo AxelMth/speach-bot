@@ -104,17 +104,17 @@ Bot.on('quick_reply:PIL_REM_DNT_HAVE', (payload, chat) => {
       {
         "content_type":"text",
         "title":"Ok j’y vais 😅",
-        // "payload":"<HOUR_SET_21H>",
+        "payload":"<HOUR_SET_21H>",
       },
       {
         "content_type":"text",
         "title":"Je m’en fiche",
-        // "payload":"<HOUR_SET_21H>",
+        "payload":"<HOUR_SET_21H>",
       },
       {
         "content_type":"text",
         "title":"Microval ? 🧐",
-        // "payload":"<HOUR_SET_21H>",
+        "payload":"<HOUR_SET_21H>",
       }
     ],
   });
@@ -133,7 +133,7 @@ Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS', (payload, chat) => {
       {
         "content_type":"text",
         "title":"Ça fait flipper… 😅",
-        // "payload":"<HOUR_SET_21H>",
+        "payload":"<HOUR_SET_21H>",
       },
     ],
   });
@@ -145,7 +145,7 @@ Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
       {
         "content_type":"text",
         "title":"Oui",
-        // "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
+        "payload":"<HOUR_SET_21H>",
       },
       {
         "content_type":"text",
@@ -162,7 +162,7 @@ Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
       {
         "content_type":"text",
         "title":"C'est mort 💀",
-        // "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
+        "payload":"<HOUR_SET_21H>",
       },
       {
         "content_type":"location",
