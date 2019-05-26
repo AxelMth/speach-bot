@@ -214,8 +214,9 @@ Bot.hear("testloc", (payload, chat) => {
   );
 });
 
-Bot.on('message', (payload, chat) => {
+Bot.on('location', (payload, chat, data) => {
   console.log(payload);
+  console.log(data);
   if(payload.coordinates)
     console.log(payload);
 });
