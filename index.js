@@ -137,94 +137,118 @@ const scenario1 = new Scenario(Bot, [
       }
     ]
   },
+  {
+    type: "on",
+    listener: "quick_reply:PIL_REM_DNT_HAVE",
+    actions: [
+      {
+        type: "sendTextMessage",
+        text: "Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅",
+        quickReplies: [
+          {
+            "content_type":"text",
+            "title":"Ah oui ? 😨",
+            "payload":"PIL_REM_PROTEC_DETAILS",
+          },
+          {
+            "content_type":"text",
+            "title":"Ok j’y vais 😅",
+            "payload":"<HOUR_SET_21H>",
+          },
+          {
+            "content_type":"text",
+            "title":"Je m’en fiche",
+            "payload":"<HOUR_SET_21H>",
+          },
+          {
+            "content_type":"text",
+            "title":"Microval ? 🧐",
+            "payload":"<HOUR_SET_21H>",
+          }
+        ]
+      }
+    ]
+  },
+  {
+    type: "on",
+    listener: "quick_reply:PIL_REM_PROTEC_DETAILS",
+    actions: [
+      {
+        type: "say text",
+        text:
+          "Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅"
+      },
+      {
+        type: "say text",
+        text:
+          "La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️"
+      },
+      {
+        type: "sendTextMessage",
+        text: "Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊",
+        quickReplies: [
+          {
+            "content_type":"text",
+            "title":"Ok c’est noté ! 📝",
+            "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
+          },
+          {
+            "content_type":"text",
+            "title":"Ça fait flipper… 😅",
+            "payload":"<HOUR_SET_21H>",
+          },
+        ]
+      }
+    ]
+  },
+  {
+    type: "on",
+    listener: "quick_reply:PIL_REM_PROTEC_DETAILS_NOTED",
+    actions: [
+      {
+        type: "sendTextMessage",
+        text: "Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?",
+        quickReplies: [
+          {
+            "content_type":"text",
+            "title":"Oui",
+            "payload":"<HOUR_SET_21H>",
+          },
+          {
+            "content_type":"text",
+            "title":"Non",
+            "payload":"ORDO_NO_MORE",
+          },
+        ]
+      }
+    ]
+  },
+  {
+    listener: "test loc",
+    actions: [
+      {
+        type: "sendTextMessage",
+        text: "Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp",
+        quickReplies: [
+          {
+            "content_type":"text",
+            "title":"C'est mort 💀",
+            "payload":"<HOUR_SET_21H>",
+          },
+          {
+            "content_type":"location",
+            "title":"Géolocalise-moi !"
+          }
+        ]
+      }
+    ]
+  },
 ]);
 
-Bot.on('quick_reply:PIL_REM_DNT_HAVE', (payload, chat) => {
-  chat.sendTextMessage("Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅", [
-      {
-        "content_type":"text",
-        "title":"Ah oui ? 😨",
-        "payload":"PIL_REM_PROTEC_DETAILS",
-      },
-      {
-        "content_type":"text",
-        "title":"Ok j’y vais 😅",
-        "payload":"<HOUR_SET_21H>",
-      },
-      {
-        "content_type":"text",
-        "title":"Je m’en fiche",
-        "payload":"<HOUR_SET_21H>",
-      },
-      {
-        "content_type":"text",
-        "title":"Microval ? 🧐",
-        "payload":"<HOUR_SET_21H>",
-      }
-    ]
-  );
-});
-
-Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS', async (payload, chat) => {
-  await chat.say("Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅");
-  await chat.say("La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️");
-  await chat.sendTextMessage("Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊", [
-      {
-        "content_type":"text",
-        "title":"Ok c’est noté ! 📝",
-        "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
-      },
-      {
-        "content_type":"text",
-        "title":"Ça fait flipper… 😅",
-        "payload":"<HOUR_SET_21H>",
-      },
-    ]
-  );
-});
-
-Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
-  chat.sendTextMessage("Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?", [
-      {
-        "content_type":"text",
-        "title":"Oui",
-        "payload":"<HOUR_SET_21H>",
-      },
-      {
-        "content_type":"text",
-        "title":"Non",
-        "payload":"ORDO_NO_MORE",
-      },
-    ],
-  );
-});
-
-// Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
-Bot.hear("Testloc", (payload, chat) => {
-  chat.sendTextMessage("Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp", [
-      {
-        "content_type":"text",
-        "title":"C'est mort 💀",
-        "payload":"<HOUR_SET_21H>",
-      },
-      {
-        "content_type":"location",
-        "title":"Géolocalise-moi !"
-      }
-    ],
-  );
-});
-
-
 Bot.on('attachment', async (payload, chat) => {
-  console.log("plural");
   const coord = payload.message.attachments[0].payload.coordinates;
-  console.log("$$$$coordinates")
   const city = await getCityFromLatLng(coord);
   chat.say(`https://www.doctolib.fr/gynecologue/${city}?latitude=${coord.lat}&longitude=${coord.long}`);
-
-  if(payload.coordinates)
-    console.log(payload);
 });
 
 scenario1.playScenario();
