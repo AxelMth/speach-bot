@@ -1,9 +1,15 @@
 "use strict";
 require("dotenv").config();
-// const Reminder = require("./models/Reminder").default;
+const Reminder = require("./models/Reminder").default;
 const Bot = require("./bot").bot;
 const Scenario = require("./lib/Scenario");
-const { getCityFromLatLng } = require("./lib/utils/googleApi");
+const { getFromGoogleApi, getCityFromLatLng } = require("./lib/utils/googleApi");
+
+const {
+  dayTimeGenerator,
+  timeGenerator,
+  formatTimeFromInput
+} = require("./lib/utils/generate-midday-schedules");
 
 const scenario1 = new Scenario(Bot, [
   {
@@ -76,19 +82,53 @@ const scenario1 = new Scenario(Bot, [
       {
         type: "say object",
         text: "À quelle heure ?",
-        quickReplies: [
-          {
-            content_type: "text",
-            title: "C'est mort 💀",
-            payload: "PIL_REM_PROTEC_DETAILS_NOTED"
-          }
-        ]
+        quickRepliesGenerator: dayTimeGenerator
       }
     ]
   },
   {
-    type: "on",
-    listener: "quick_reply:PIL_REM_PROTEC_DETAILS_NOTED",
+    listener: /^[0-9]{1}([0-9]{1})?h$|^Minuit$|^Midi$/i,
+    actions: [
+      {
+        type: "say object",
+        text: "Allez, t'as le meme le choix des minutes !",
+        quickRepliesGenerator: timeGenerator
+      }
+    ]
+  },
+  {
+    listener: /^[0-9]{1}([0-9]{1})?h[0-9]{2}$|^Minuit !$|^Midi !$/i,
+    callback: async (idUser, reminderTime) => {
+      try {
+        const foundUser = await Reminder.findOne({
+          where: {
+            idUser
+          }
+        });
+        if (foundUser) {
+          await Reminder.update(
+            {
+              idUser,
+              sequenceStep: 0,
+              time: formatTimeFromInput(reminderTime)
+            },
+            {
+              where: {
+                idUser
+              }
+            }
+          );
+        } else {
+          await Reminder.create({
+            idUser,
+            sequenceStep: 0,
+            time: formatTimeFromInput(reminderTime)
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
     actions: [
       {
         type: "say text",
@@ -103,8 +143,7 @@ const scenario1 = new Scenario(Bot, [
     actions: [
       {
         type: "sendTextMessage",
-        text:
-          "Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅",
+        text: "Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅",
         quickReplies: [
           {
             "content_type":"text",
@@ -114,17 +153,17 @@ const scenario1 = new Scenario(Bot, [
           {
             "content_type":"text",
             "title":"Ok j’y vais 😅",
-            "payload":"<DEAD>",
+            "payload":"<HOUR_SET_21H>",
           },
           {
             "content_type":"text",
             "title":"Je m’en fiche",
-            "payload":"<DEAD>",
+            "payload":"<HOUR_SET_21H>",
           },
           {
             "content_type":"text",
             "title":"Microval ? 🧐",
-            "payload":"<DEAD>",
+            "payload":"<HOUR_SET_21H>",
           }
         ]
       }
@@ -136,16 +175,17 @@ const scenario1 = new Scenario(Bot, [
     actions: [
       {
         type: "say text",
-        text: "Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅"
+        text:
+          "Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅"
       },
       {
         type: "say text",
-        text: "La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️",
+        text:
+          "La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️"
       },
       {
         type: "sendTextMessage",
-        text:
-          "Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊",
+        text: "Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊",
         quickReplies: [
           {
             "content_type":"text",
@@ -155,7 +195,7 @@ const scenario1 = new Scenario(Bot, [
           {
             "content_type":"text",
             "title":"Ça fait flipper… 😅",
-            "payload":"<DEAD>",
+            "payload":"<HOUR_SET_21H>",
           },
         ]
       }
@@ -167,46 +207,43 @@ const scenario1 = new Scenario(Bot, [
     actions: [
       {
         type: "sendTextMessage",
-        text:
-          "Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?",
+        text: "Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?",
         quickReplies: [
           {
             "content_type":"text",
             "title":"Oui",
-            "payload":"<DEAD>",
+            "payload":"<HOUR_SET_21H>",
           },
           {
-            "content_type": "text",
-            "title": "Non",
-            "payload": "ORDO_NO_MORE"
+            "content_type":"text",
+            "title":"Non",
+            "payload":"ORDO_NO_MORE",
           },
         ]
       }
     ]
   },
   {
-    type: "on",
-    listener: "quick_reply:ORDO_NO_MORE",
+    listener: "test loc",
     actions: [
       {
         type: "sendTextMessage",
-        text:
-          "Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp",
+        text: "Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp",
         quickReplies: [
           {
             "content_type":"text",
             "title":"C'est mort 💀",
-            "payload":"<DEAD>",
+            "payload":"<HOUR_SET_21H>",
           },
           {
-            "content_type":"location"
+            "content_type":"location",
+            "title":"Géolocalise-moi !"
           }
         ]
       }
     ]
   },
 ]);
-
 
 Bot.on('attachment', async (payload, chat) => {
   const coord = payload.message.attachments[0].payload.coordinates;
