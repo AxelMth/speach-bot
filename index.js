@@ -215,6 +215,22 @@ Bot.hear("testloc", (payload, chat) => {
 });
 
 Bot.on('location', (payload, chat, data) => {
+  console.log("loc");
+  console.log(payload);
+  console.log(data);
+  if(payload.coordinates)
+    console.log(payload);
+});
+Bot.on('attachments', (payload, chat, data) => {
+  console.log("att");
+  console.log(payload);
+  console.log(data);
+  if(payload.coordinates)
+    console.log(payload);
+});
+
+Bot.on('attachment', (payload, chat, data) => {
+  console.log("plural");
   console.log(payload);
   console.log(data);
   if(payload.coordinates)
