@@ -1,18 +1,3 @@
-<<<<<<< Updated upstream
-'use strict';
-
-require("dotenv").config();
-
-const BootBot = require('./lib/BootBot');
-
-const bot = new BootBot({
-    accessToken: process.env.FB_ACCESS_TOKEN,
-    verifyToken: process.env.FB_VERIFY_TOKEN,
-    appSecret: process.env.FB_APP_SECRET
-});
-
-bot.start();
-=======
 "use strict";
 require("dotenv").config();
 const Reminder = require("./models/Reminder").default;
@@ -53,4 +38,3 @@ const scenario1 = new Scenario(Bot, [
 scenario1.playScenario();
 
 Bot.start(3000);
->>>>>>> Stashed changes
