@@ -217,8 +217,8 @@ Bot.hear("Testloc", (payload, chat) => {
 
 Bot.on('attachment', (payload, chat) => {
   console.log("plural");
-  console.log(payload.attachments);
-  console.log(payload.attachments.payload.coordinates);
+  console.log(payload.message.attachments);
+  console.log(payload.message.attachments.payload.coordinates);
 
   if(payload.coordinates)
     console.log(payload);
