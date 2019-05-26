@@ -3,6 +3,12 @@ require("dotenv").config();
 const Reminder = require("./models/Reminder").default;
 const Bot = require("./bot").bot;
 const Scenario = require("./lib/Scenario");
+const getFromGoogleApi = require("./lib/utils/googleApi").getFromGoogleApi;
+const {
+  dayTimeGenerator,
+  timeGenerator,
+  formatTimeFromInput
+} = require("./lib/utils/generate-midday-schedules");
 
 const scenario1 = new Scenario(Bot, [
   {
@@ -65,20 +71,69 @@ const scenario1 = new Scenario(Bot, [
         type: "say object",
         text:
           "Alors, à quelle heure je t’envoie un rappel ? 😄",
-        quickReplies: [
-          {
-            "content_type":"text",
-            "title":"08h",
-            "payload":"<HOUR_SET_8H>",
-          },
-          {
-            "content_type":"text",
-            "title":"21h",
-            "payload":"<HOUR_SET_21H>",
-          }
-        ],
-        // payload: "HOUR_REMINDER_SET"
+        quickReplies: ["Team Matin 🐓", "Team Aprèm ☀️", "Team Nuit 🐺"]
       },
+    ]
+  },
+  {
+    listener: /Team Matin|Team Aprèm|Team Nuit/i,
+    actions: [
+      {
+        type: "say object",
+        text: "À quelle heure ?",
+        quickRepliesGenerator: dayTimeGenerator
+      }
+    ]
+  },
+  {
+    listener: /^[0-9]{1}([0-9]{1})?h$|^Minuit$|^Midi$/i,
+    actions: [
+      {
+        type: "say object",
+        text: "Allez, t'as le meme le choix des minutes !",
+        quickRepliesGenerator: timeGenerator
+      }
+    ]
+  },
+  {
+    listener: /^[0-9]{1}([0-9]{1})?h[0-9]{2}$|^Minuit !$|^Midi !$/i,
+    callback: async (idUser, reminderTime) => {
+      try {
+        const foundUser = await Reminder.findOne({
+          where: {
+            idUser
+          }
+        });
+        if (foundUser) {
+          await Reminder.update(
+            {
+              idUser,
+              sequenceStep: 0,
+              time: formatTimeFromInput(reminderTime)
+            },
+            {
+              where: {
+                idUser
+              }
+            }
+          );
+        } else {
+          await Reminder.create({
+            idUser,
+            sequenceStep: 0,
+            time: formatTimeFromInput(reminderTime)
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    actions: [
+      {
+        type: "say text",
+        text:
+          "C’est bien noté 📝, je te rappellerai de prendre ta pilule à cette heure-là ! ⏰"
+      }
     ]
   },
 ]);
