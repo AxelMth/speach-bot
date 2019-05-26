@@ -198,7 +198,8 @@ Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
   );
 });
 
-Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
+// Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
+Bot.hear("testloc", (payload, chat) => {
   chat.sendTextMessage("Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp", [
       {
         "content_type":"text",
@@ -211,6 +212,11 @@ Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
       }
     ],
   );
+});
+
+Bot.on('quick_reply', (payload, chat) => {
+  if(payload.coordinates)
+    console.log(payload);
 });
 
 // const scenarioReminder = new Scenario(Bot, [
