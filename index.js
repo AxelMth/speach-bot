@@ -139,7 +139,7 @@ const scenario1 = new Scenario(Bot, [
 ]);
 
 Bot.on('quick_reply:PIL_REM_DNT_HAVE', (payload, chat) => {
-  chat.say("Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅", {
+  chat.sendTextMessage("Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅", {
     quickReplies: [
       {
         "content_type":"text",
