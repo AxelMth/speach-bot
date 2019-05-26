@@ -164,11 +164,10 @@ Bot.on('quick_reply:PIL_REM_DNT_HAVE', (payload, chat) => {
   );
 });
 
-Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS', (payload, chat) => {
-  chat.say("Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅");
-  chat.say("La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️");
-  chat.say("Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊", {
-    quickReplies: [
+Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS', async (payload, chat) => {
+  await chat.say("Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅");
+  await chat.say("La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️");
+  await chat.sendTextMessage("Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊", [
       {
         "content_type":"text",
         "title":"Ok c’est noté ! 📝",
@@ -179,13 +178,12 @@ Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS', (payload, chat) => {
         "title":"Ça fait flipper… 😅",
         "payload":"<HOUR_SET_21H>",
       },
-    ],
-  });
+    ]
+  );
 });
 
 Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
-  chat.say("Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?", {
-    quickReplies: [
+  chat.sendTextMessage("Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?", [
       {
         "content_type":"text",
         "title":"Oui",
@@ -197,12 +195,11 @@ Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
         "payload":"ORDO_NO_MORE",
       },
     ],
-  });
+  );
 });
 
 Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
-  chat.say("Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp", {
-    quickReplies: [
+  chat.sendTextMessage("Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp", [
       {
         "content_type":"text",
         "title":"C'est mort 💀",
@@ -213,7 +210,7 @@ Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
         "title":"Géolocalise-moi !"
       }
     ],
-  });
+  );
 });
 
 // const scenarioReminder = new Scenario(Bot, [
