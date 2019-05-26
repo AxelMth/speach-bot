@@ -199,7 +199,7 @@ Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
 });
 
 // Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
-Bot.hear("testloc", (payload, chat) => {
+Bot.hear("Testloc", (payload, chat) => {
   chat.sendTextMessage("Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp", [
       {
         "content_type":"text",
@@ -214,25 +214,12 @@ Bot.hear("testloc", (payload, chat) => {
   );
 });
 
-Bot.on('location', (payload, chat, data) => {
-  console.log("loc");
-  console.log(payload);
-  console.log(data);
-  if(payload.coordinates)
-    console.log(payload);
-});
-Bot.on('attachments', (payload, chat, data) => {
-  console.log("att");
-  console.log(payload);
-  console.log(data);
-  if(payload.coordinates)
-    console.log(payload);
-});
 
-Bot.on('attachment', (payload, chat, data) => {
+Bot.on('attachment', (payload, chat) => {
   console.log("plural");
-  console.log(payload);
-  console.log(data);
+  console.log(payload.attachments);
+  console.log(payload.attachments.payload.coordinates);
+
   if(payload.coordinates)
     console.log(payload);
 });
