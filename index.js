@@ -222,64 +222,11 @@ Bot.on('attachment', async (payload, chat) => {
   console.log("$$$$coordinates")
   const city = await getCityFromLatLng(coord);
   chat.say(`https://www.doctolib.fr/gynecologue/${city}?latitude=${coord.lat}&longitude=${coord.long}`);
-  // console.log(payload.message.attachments.payload.coordinates);
 
   if(payload.coordinates)
     console.log(payload);
 });
 
-// const scenarioReminder = new Scenario(Bot, [
-//   {
-//       listener: ["Je l’ai pas sur moi"],
-//       actions: [
-//         {
-//           type: "say object",
-//           text: "Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅",
-//           quickReplies: ["Ah oui ? 😨",	"Ok j’y vais 😅", "Je m’en fiche", "Microval ? 🧐"]
-//         },
-//       ]
-//   },
-//   {
-//       listener: ["Ah oui ? 😨"],
-//       actions: [
-//         {
-//           type: "say text",
-//           text: "Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅",
-//         },
-//         {
-//           type: "say text",
-//           text: "La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️",
-//         },
-//         {
-//           type: "say object",
-//           text: "Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊",
-//           quickReplies: ["Ok c’est noté ! 📝",	"Ça fait flipper… 😅"]
-//         },
-//       ]
-//   },
-//   {
-//       listener: ["Ok c’est noté ! 📝"],
-//       actions: [
-//         {
-//           type: "say object",
-//           text: "Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?",
-//           quickReplies: ["Oui",	"Non"]
-//         },
-//       ]
-//   },
-//   {
-//       listener: ["Non"],
-//       actions: [
-//         {
-//           type: "say text",
-//           text: "Prévois le coup et prends rdv avec ton médecin ou gynécologue",
-//         },
-//       ]
-//   },
-// ]);
-
-
-// scenarioReminder.playScenario();
 scenario1.playScenario();
 
 Bot.start(process.env.PORT);
