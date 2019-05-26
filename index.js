@@ -12,7 +12,11 @@ const scenario1 = new Scenario(Bot, [
       {
         type: "say object",
         text: "À quelle heure ?",
-        quickReplies: ["jhh", "hjcdduifbd"]
+        quickReplies: [{
+          "content_type":"text",
+          "title":"C'est mort 💀",
+          "payload": "ORDO_NO_MORE",
+        },]
       }
     ]
   },
