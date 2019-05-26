@@ -220,7 +220,7 @@ Bot.on('attachment', (payload, chat) => {
   console.log(payload.message.attachments);
   console.log(payload.message.attachments[0].payload.coordinates);
   console.log("$$$$coordinates")
-  console.log(payload.message.attachments.payload.coordinates);
+  // console.log(payload.message.attachments.payload.coordinates);
 
   if(payload.coordinates)
     console.log(payload);
