@@ -76,7 +76,7 @@ const scenario1 = new Scenario(Bot, [
     ]
   },
   {
-    listener: /Team Matin|Team Aprèm|Team Nuit/i,
+    listener: /Team Matin(.*)|Team Aprèm(.*)|Team Nuit(.*)/i,
     actions: [
       {
         type: "say object",
