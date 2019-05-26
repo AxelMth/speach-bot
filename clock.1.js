@@ -1,43 +1,10 @@
 require("dotenv").config();
-const CronJob = require("cron").CronJob;
-const Reminder = require("./models/Reminder").default;
 const Bot = require("./bot").bot;
 const Scenario = require("./lib/Scenario");
 
-new CronJob({
-    cronTime: "* * * * *",
-    onTick: async function() {
-        const usersToRemind = await Reminder.findAll({
-            attributes: ["idUser"]
-        });
-        
-        usersToRemind.forEach(
-            e => {
-                remindersObject[e.getDataValue("sequenceStep")].map(
-                    e => {
-                        e.actions.map(
-                            action => {
-                                if (action.type === "say object") {
-                                    const clonedAction = JSON.parse(JSON.stringify(action));
-                                    delete clonedAction.type;
-                                    Bot.say(e.getDataValue("idUser"), clonedAction);
-                                } else if (action.type === "say text" || action.type === "postback") {
-                                    Bot.say(e.getDataValue("idUser"), text, action.options);
-                                }
-                                Bot.say(e.getDataValue("idUser"),e);
-                            }
-                        )
-                        
-                    }
-                );
-                Bot.say(e.getDataValue("idUser"),remindersQR); 
-            }
-        );
-
-    },
-    start: true,
-    timeZone: "Europe/Paris"
-});
+Bot.say("2416670891718055","Tu veux une petite blague ? 🤓");
+Bot.say("2416670891718055","Dans la phrase 'Je suis enceinte', quel est le temps du verbe ?"); 
+Bot.say("2416670891718055","L'imparfait du préservatif. 😂",{typing: true});
 
 const remindersQR = {
         type: "say object",

@@ -96,9 +96,23 @@ const scenario1 = new Scenario(Bot, [
 Bot.on('quick_reply:<HOUR_SET_21H>', (payload, chat) => {
   chat.say("tas choisi 21h");
 });
-// Bot.on('quick_reply', (payload, chat) => {
-//   chat.say("choix des heures "+payload);
-// });
+
+Bot.on('quick_reply:PIL_REM_DNT_HAVE', (payload, chat) => {
+  chat.say("Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅", {
+    quickReplies: [
+      {
+        "content_type":"text",
+        "title":"08h",
+        "payload":"<HOUR_SET_8H>",
+      },
+      {
+        "content_type":"text",
+        "title":"21h",
+        "payload":"<HOUR_SET_21H>",
+      }
+    ],
+  });
+});
 
 const scenarioReminder = new Scenario(Bot, [
   {
