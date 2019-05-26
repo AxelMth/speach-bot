@@ -93,79 +93,137 @@ const scenario1 = new Scenario(Bot, [
   },
 ]);
 
-Bot.on('quick_reply:<HOUR_SET_21H>', (payload, chat) => {
-  chat.say("tas choisi 21h");
-});
-
 Bot.on('quick_reply:PIL_REM_DNT_HAVE', (payload, chat) => {
   chat.say("Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅", {
     quickReplies: [
       {
         "content_type":"text",
-        "title":"08h",
-        "payload":"<HOUR_SET_8H>",
+        "title":"Ah oui ? 😨",
+        "payload":"PIL_REM_PROTEC_DETAILS",
       },
       {
         "content_type":"text",
-        "title":"21h",
-        "payload":"<HOUR_SET_21H>",
+        "title":"Ok j’y vais 😅",
+        // "payload":"<HOUR_SET_21H>",
+      },
+      {
+        "content_type":"text",
+        "title":"Je m’en fiche",
+        // "payload":"<HOUR_SET_21H>",
+      },
+      {
+        "content_type":"text",
+        "title":"Microval ? 🧐",
+        // "payload":"<HOUR_SET_21H>",
       }
     ],
   });
 });
 
-const scenarioReminder = new Scenario(Bot, [
-  {
-      listener: ["Je l’ai pas sur moi"],
-      actions: [
-        {
-          type: "say object",
-          text: "Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅",
-          quickReplies: ["Ah oui ? 😨",	"Ok j’y vais 😅", "Je m’en fiche", "Microval ? 🧐"]
-        },
-      ]
-  },
-  {
-      listener: ["Ah oui ? 😨"],
-      actions: [
-        {
-          type: "say text",
-          text: "Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅",
-        },
-        {
-          type: "say text",
-          text: "La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️",
-        },
-        {
-          type: "say object",
-          text: "Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊",
-          quickReplies: ["Ok c’est noté ! 📝",	"Ça fait flipper… 😅"]
-        },
-      ]
-  },
-  {
-      listener: ["Ok c’est noté ! 📝"],
-      actions: [
-        {
-          type: "say object",
-          text: "Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?",
-          quickReplies: ["Oui",	"Non"]
-        },
-      ]
-  },
-  {
-      listener: ["Non"],
-      actions: [
-        {
-          type: "say text",
-          text: "Prévois le coup et prends rdv avec ton médecin ou gynécologue",
-        },
-      ]
-  },
-]);
+Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS', (payload, chat) => {
+  chat.say("Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅");
+  chat.say("La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️");
+  chat.say("Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊", {
+    quickReplies: [
+      {
+        "content_type":"text",
+        "title":"Ok c’est noté ! 📝",
+        "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
+      },
+      {
+        "content_type":"text",
+        "title":"Ça fait flipper… 😅",
+        // "payload":"<HOUR_SET_21H>",
+      },
+    ],
+  });
+});
+
+Bot.on('quick_reply:PIL_REM_PROTEC_DETAILS_NOTED', (payload, chat) => {
+  chat.say("Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?", {
+    quickReplies: [
+      {
+        "content_type":"text",
+        "title":"Oui",
+        // "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
+      },
+      {
+        "content_type":"text",
+        "title":"Non",
+        "payload":"ORDO_NO_MORE",
+      },
+    ],
+  });
+});
+
+Bot.on('quick_reply:ORDO_NO_MORE', (payload, chat) => {
+  chat.say("Ok! Je peux te chercher un.e gynécologue 👩‍⚕️👨‍⚕️! J'ai besoin de ton adresse stp", {
+    quickReplies: [
+      {
+        "content_type":"text",
+        "title":"C'est mort 💀",
+        // "payload":"PIL_REM_PROTEC_DETAILS_NOTED",
+      },
+      {
+        "content_type":"location",
+        "title":"Géolocalise-moi !"
+      }
+    ],
+  });
+});
+
+// const scenarioReminder = new Scenario(Bot, [
+//   {
+//       listener: ["Je l’ai pas sur moi"],
+//       actions: [
+//         {
+//           type: "say object",
+//           text: "Tu as 12h à compter de maintenant pour la prendre, sinon tu ne seras plus protégée (hors pilule Microval) ! 😅",
+//           quickReplies: ["Ah oui ? 😨",	"Ok j’y vais 😅", "Je m’en fiche", "Microval ? 🧐"]
+//         },
+//       ]
+//   },
+//   {
+//       listener: ["Ah oui ? 😨"],
+//       actions: [
+//         {
+//           type: "say text",
+//           text: "Oui ! La pilule te protège 36h des grossesses non désirées. Au-delà de ce délai, l’efficacité de la pilule est moindre ! 👼😅",
+//         },
+//         {
+//           type: "say text",
+//           text: "La pilule Microval fait exception à la règle ! Attention, avec celle-ci tu n’as que 3h pour prendre ton contraceptif 🏃‍♀️",
+//         },
+//         {
+//           type: "say object",
+//           text: "Si tu te rends compte aujourd’hui que tu as oublié ta pilule hier, tu peux en prendre 2 en même temps. Plus rapidement tu les prendras, mieux ce sera, alors ne tarde pas ! 😊",
+//           quickReplies: ["Ok c’est noté ! 📝",	"Ça fait flipper… 😅"]
+//         },
+//       ]
+//   },
+//   {
+//       listener: ["Ok c’est noté ! 📝"],
+//       actions: [
+//         {
+//           type: "say object",
+//           text: "Au fait, tu es bientôt arrivée à la fin de ta plaquette ! Tu as une ordonnance à jour ?",
+//           quickReplies: ["Oui",	"Non"]
+//         },
+//       ]
+//   },
+//   {
+//       listener: ["Non"],
+//       actions: [
+//         {
+//           type: "say text",
+//           text: "Prévois le coup et prends rdv avec ton médecin ou gynécologue",
+//         },
+//       ]
+//   },
+// ]);
 
 
-scenarioReminder.playScenario();
+// scenarioReminder.playScenario();
 scenario1.playScenario();
 
 Bot.start(process.env.PORT);
