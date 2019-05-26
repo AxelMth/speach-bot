@@ -215,6 +215,7 @@ Bot.hear("testloc", (payload, chat) => {
 });
 
 Bot.on('quick_reply', (payload, chat) => {
+  console.log(payload);
   if(payload.coordinates)
     console.log(payload);
 });
