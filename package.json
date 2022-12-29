@@ -29,7 +29,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.15.2",
-    "config": "^1.21.0",
+    "config": "^3.3.8",
     "cron": "^1.7.1",
     "dotenv": "^8.0.0",
     "eventemitter3": "^1.2.0",
